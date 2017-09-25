@@ -1,0 +1,39 @@
+<launch>
+
+  <arg name="camera" default="/camera"/>
+
+  <!-- Run the mono image proc -->
+  <!-- <node ns="$(arg camera)" pkg="image_proc" type="image_proc" name="image_proc" /> -->
+
+  <!-- Viso2 -->
+  <node pkg="viso2_ros" type="mono_odometer" name="mono_odometer">
+    <remap from="mono" to="$(arg camera)"/>
+    <remap from="image" to="image_rect"/>
+    <!-- <param name="base_link_frame_id" value="$(arg camera)"/> -->
+
+    <!-- Matcher params -->
+    <!-- <param name="nms_n" value=""/>
+    <param name="nms_tau" value=""/>
+    <param name="match_binsize" value=""/>
+    <param name="match_radius" value=""/>
+    <param name="match_disp_tolerance" value=""/>
+    <param name="outlier_disp_tolerance" value=""/>
+    <param name="outlier_flow_tolerance" value=""/>
+    <param name="multi_stage" value=""/>
+    <param name="half_resolution" value=""/>
+    <param name="refinement" value=""/> -->
+
+    <!-- Bucketing params -->
+    <!-- <param name="max_features" value=""/>
+    <param name="bucket_width" value=""/>
+    <param name="bucket_height" value=""/> -->
+
+    <!-- Mono params -->
+    <param name="camera_height" value="0"/>
+    <param name="camera_pitch" value="0"/>
+    <!-- <param name="ransac_iters" value=""/>
+    <param name="inlier_threshold" value=""/>
+    <param name="motion_threshold" value=""/> -->
+  </node>
+
+</launch>

@@ -1,0 +1,13 @@
+<launch>
+
+
+  <!-- Visual odometry, SVO 2.0 -->
+	<include file="$(find svo_ros)/launch/svo_snappy.launch">
+	</include>
+
+	<!-- Sensor fusion, robot_localization -->
+	<include file="$(find robot_localization)/launch/snappy_ekf.launch">
+	</include>
+
+
+</launch>

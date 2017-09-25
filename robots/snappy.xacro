@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+
+<!-- BlueROV2 [[USE RRBOT AS EXAMPLE]]-->
+<robot name="bluerov2">
+
+<!-- Constants for robot dimensions -->
+<xacro:property name="PI" value="3.1415926535897931"/>
+<xacro:property name="mass" value="1" /> <!-- arbitrary value for mass -->
+<xacro:property name="depth" value="0.235" /> <!-- robot depth -->
+<xacro:property name="width" value="0.005" /> <!-- robot width -->
+<xacro:property name="height" value="0.175" /> <!-- robot height -->
+<xacro:property name="camera_link" value="0.05" /> <!-- Size of square 'camera' box -->
+<xacro:property name="base_link" value="0.05" /> <!-- Size of square 'robot' box -->
+<xacro:property name="imu" value="0.05" /> <!-- Size of square 'fcu/imu' box -->
+
+<!-- Import all Gazebo-customization elements, including Gazebo colors -->
+<!-- <xacro:include filename="$(find snappy_mavros)/robots/snappy.gazebo" /> -->
+<!-- Import Rviz colors -->
+<!-- <xacro:include filename="$(find snappy_mavros)/robots/materials_snappy.xacro" /> -->
+
+<!-- Base Link -->
+<link name="fcu">
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+<box size="${depth} ${width} ${height}"/>
+    </geometry>
+  </collision>
+
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+<box size="${depth} ${width} ${height}"/>
+    </geometry>
+    <material name="blue"/>
+  </visual>
+
+  <inertial>
+    <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
+    <mass value="${mass}"/>
+    <inertia
+  ixx="${mass / 12.0 * (depth*width + height*height)}" ixy="0.0" ixz="0.0"
+  iyy="${mass / 12.0 * (height*height + depth*width)}" iyz="0.0"
+  izz="${mass / 12.0 * (depth*width + depth*width)}"/>
+  </inertial>
+</link>
+
+<joint name="joint1" type="continuous">
+  <parent link="base_link"/>
+  <child link="fcu"/>
+  <origin xyz="0 ${width} ${height}" rpy="0 0 0"/>
+  <axis xyz="0 1 0"/>
+  <dynamics damping="0.7"/>
+</joint>
