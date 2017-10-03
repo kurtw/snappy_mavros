@@ -26,7 +26,7 @@
 	</include>
 
 	<!-- GSCAM, uses gstreamer for 1080HD, H.264 camera. -->
-	<include file="$(find gscam)/examples/gscam_snappy.launch">
+	<include file="$(find gscam)/examples/gscam_snappy2.launch">
 	</include>
 
 </launch>

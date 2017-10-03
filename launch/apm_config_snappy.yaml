@@ -1,4 +1,4 @@
-##IMPORTANT: ALL "world" frame_id used to be "map". If having issue, change "world" back to "map".
+##IMPORTANT: ALL "world" frame_id used to be "world". If having issue, change "world" back to "world".
 # Common configuration for APM2 autopilot
 #
 # node:
@@ -67,10 +67,10 @@ imu:
 local_position:
   frame_id: "world"
   tf:
-    send: false
+    send: true
     frame_id: "world"
     child_frame_id: "base_link"
-    send_fcu: false
+    send_fcu: true
 
 # param
 # None, used for FCU params

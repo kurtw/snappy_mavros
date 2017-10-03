@@ -1,0 +1,49 @@
+<launch>
+
+    <node pkg="tf" type="static_transform_publisher" name="camera_tf_pub" args="0 0 0 0 0 0 base_link camera_frame 100" />
+
+    <!-- <arg name="marker_size" default="11.176" />
+  	<arg name="max_new_marker_error" default="0.08" />
+  	<arg name="max_track_error" default="0.2" />
+
+  	<arg name="cam_image_topic" default="/camera/image_color" />
+  	<arg name="cam_info_topic" default="/camera/camera_info" />
+  	<arg name="output_frame" default="/ar_frame" />
+
+	<node name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkersNoKinect" respawn="false" output="screen">
+		<param name="marker_size"           type="double" value="$(arg marker_size)" />
+		<param name="max_new_marker_error"  type="double" value="$(arg max_new_marker_error)" />
+		<param name="max_track_error"       type="double" value="$(arg max_track_error)" />
+		<param name="output_frame"          type="string" value="$(arg output_frame)" />
+
+		<remap from="camera_image"  to="$(arg cam_image_topic)" />
+		<remap from="camera_info"   to="$(arg cam_info_topic)" />
+</node> -->
+
+<node pkg="apriltags_ros" type="apriltag_detector_node" name="apriltag_detector" output="screen">
+  <!-- Remap topic required by the node to custom topics -->
+  <remap from="image_rect" to="/camera/decimate/image_rect" />
+  <remap from="camera_info" to="/camera/decimate/camera_info" />
+
+  <!-- Optional: Subscribe to the compressed stream-->
+  <param name="image_transport" type="str" value="raw" />
+
+  <!-- Select the tag family: 16h5, 25h7, 25h9, 36h9, or 36h11(default) -->
+  <param name="tag_family" type="str" value="36h11" />
+
+  <!-- Enable projected optical measurements for more accurate tag transformations -->
+  <!-- This exists for backwards compatability and should be left true for new setups -->
+  <param name="projected_optics" type="bool" value="true" />
+
+  <!-- Describe the tags -->
+  <rosparam param="tag_descriptions">[
+    {id: 13, size: 0.163513, frame_id: ar_tag_13}]
+    <!-- {id: 1, size: 0.163513, frame_id: a_frame},
+    {id: 2, size: 0.163513, frame_id: tag_2},
+    {id: 3, size: 0.163513},
+    {id: 4, size: 0.163513},
+    {id: 5, size: 0.163513}] -->
+  </rosparam>
+</node>
+
+</launch>

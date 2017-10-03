@@ -12,6 +12,8 @@ void pid_pub_outCallback(const mavros::RCIn::ConstPtr& msg)
 {
   ROS_INFO("rc_2_pidCallback start");
   //call rc_node??
+  //or
+  //just publish adjusted PWM to mavros??
 
 }
 
